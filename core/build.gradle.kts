@@ -2,11 +2,10 @@ plugins {
     id("java")
     kotlin("jvm")
     `maven-publish`
-    signing
 }
 
 group = "io.kotgres"
-version = "0.1-SNAPSHOT"
+version = "0.1.1"
 
 repositories {
     mavenCentral()
@@ -24,6 +23,24 @@ java {
     withSourcesJar()
     withJavadocJar()
 }
+
+/**
+ * JITPACK PUBLISHING
+ */
+afterEvaluate {
+    publishing {
+        publications {
+            create("java", MavenPublication::class) {
+                from(components["java"])
+
+                groupId = "io.kotgres"
+                artifactId = "dsl"
+                version = "0.1.1"
+            }
+        }
+    }
+}
+
 
 /**
  * MAVEN PUBLISHING (TODO)
