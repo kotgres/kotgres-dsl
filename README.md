@@ -8,6 +8,35 @@ It was designed in parallel with the [Kotgres](http://kotgres.io) ORM, but can b
 
 This is only a DSL, to run the queries produced by it you will need an ORM or a similar library (i.e. [Kotgres](http://kotgres.io)).
 
+## Installation
+
+The library is currently distributed through Jitpack, planning to release on Maven Central soon. To install, add this to your `build.gradke.kts`:
+
+```kotlin
+repositories {
+    <...>
+    maven { setUrl("https://jitpack.io") }
+}
+
+dependencies {
+    <...>
+    implementation("com.github.kotgres:kotgres-dsl:0.1.0")
+}
+```
+
+Or if you use Groovy (aka `build.gradle`):
+```kotlin
+repositories {
+    <...>
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    <...>
+    implementation 'com.github.kotgres:kotgres-dsl:0.1.1'
+}
+```
+
 ## Features
 
 ## Base statements
