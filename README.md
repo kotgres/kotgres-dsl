@@ -1,5 +1,7 @@
 # Kotgres-dsl
 
+![kotgres-dsl banner](media/readme.png)
+
 **This library is in alpha, and the API is subject to change**
 
 This is a zero-dependency Kotlin [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for the SQL language, in particular the PostgreSQL dialect.
@@ -20,12 +22,12 @@ repositories {
 
 dependencies {
     <...>
-    implementation("com.github.kotgres:kotgres-dsl:0.1.0")
+    implementation("com.github.kotgres:kotgres-dsl:0.1.1")
 }
 ```
 
 Or if you use Groovy (aka `build.gradle`):
-```kotlin
+```groovy
 repositories {
     <...>
     maven { url 'https://jitpack.io' }
@@ -42,24 +44,24 @@ dependencies {
 ## Base statements
 
 Supports the following base Postgres statements:
-- Select
-- Insert
-- Update
-- Delete
+- Select (entrypoint is the `select` function from `import io.kotgres.dsl.select`)
+- Insert (entrypoint is the `insertInto` function from `import io.kotgres.dsl.insertInto`)
+- Update (entrypoint is the `update` function from `import io.kotgres.dsl.update`)
+- Delete (entrypoint is the `deleteFrom` function from `import io.kotgres.dsl.deleteFrom`)
 
 ## Operators
 
 Supports the most common operators in Postgres:
 
 ### Equality/Inequality:
-- = (via `eq`)
-- != or <> (via `neq`)
+- **=** (via `eq`)
+- **!=** or <> (via `neq`)
 
 ### Comparison:
-- > (via `greater`)
-- >= (via `greaterEq`)
-- < (via `less`)
-- <= (via `lessEq`)
+- **>** (via `greater`)
+- **>=** (via `greaterEq`)
+- **<** (via `less`)
+- **<=** (via `lessEq`)
 
 ### Pattern Matching:
 - LIKE (via `like`)
@@ -68,8 +70,8 @@ Supports the most common operators in Postgres:
 - NOT ILIKE (via `notIlike`)
 
 ### Regular Expression:
-- ~ (via `regexp`)
-- !~ (via notRegexp)
+- **~** (via `regexp`)
+- **!~** (via notRegexp)
 
 ### Range:
 - BETWEEN (via `between`)
@@ -83,8 +85,8 @@ Supports the most common operators in Postgres:
 - NOT IN (via `notInList`)
 
 ### Array Operations:
-- = ANY (via `eqAny`)
-- != ANY (via `neqAny`)
+- **=** ANY (via `eqAny`)
+- **!=** ANY (via `neqAny`)
 
 ## Raw values
 
@@ -121,9 +123,10 @@ Will print:
 ```sql
 SELECT *
 FROM user
-LEFT JOIN address ON ( address.user_id = user.id )
-RIGHT JOIN country ON ( address.country_id = country.id )
-WHERE user.id = 1
+    LEFT JOIN address ON ( address.user_id = user.id )
+    RIGHT JOIN country ON ( address.country_id = country.id )
+WHERE
+    country.id = 1
 ORDER BY id ASC
 ```
 
@@ -150,11 +153,11 @@ Will print:
 INSERT INTO user ( name, age )
 VALUES ( 'david', 18 )
 ON CONFLICT (name) DO UPDATE
-  SET name = 'duplicated'
+    SET name = 'duplicated'
 WHERE
-  age IS NULL
+    age IS NULL
 RETURNING
-  *
+    *
 ```
 
 ### Update
@@ -178,11 +181,11 @@ Will print:
 ```sql
 UPDATE users
 SET asd='a',
-  b='c'
+    b='c'
 WHERE
-  a > b
-  OR hello
-  AND b IS NULL
+    a > b
+    OR hello
+    AND b IS NULL
 ```
 
 ### Delete
@@ -202,6 +205,6 @@ Will print:
 ```sql
 DELETE FROM users
 WHERE
-  age > 100
-  OR was_deleted = false
+    age > 100
+    OR was_deleted = false
 ```
