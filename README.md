@@ -39,7 +39,7 @@ dependencies {
 
 ## Features
 
-## Base statements
+### Base statements
 
 Supports the following base Postgres statements:
 - Select (entrypoint is the `select` function from `import io.kotgres.dsl.select`)
@@ -47,46 +47,46 @@ Supports the following base Postgres statements:
 - Update (entrypoint is the `update` function from `import io.kotgres.dsl.update`)
 - Delete (entrypoint is the `deleteFrom` function from `import io.kotgres.dsl.deleteFrom`)
 
-## Operators
+### Operators
 
 Supports the most common operators in Postgres:
 
-### Equality/Inequality:
+#### Equality/Inequality:
 - **=** (via `eq`)
 - **!=** or <> (via `neq`)
 
-### Comparison:
+#### Comparison:
 - **>** (via `greater`)
 - **>=** (via `greaterEq`)
 - **<** (via `less`)
 - **<=** (via `lessEq`)
 
-### Pattern Matching:
+#### Pattern Matching:
 - LIKE (via `like`)
 - NOT LIKE (via `notLike`)
 - ILIKE (via `ilike`)
 - NOT ILIKE (via `notIlike`)
 
-### Regular Expression:
+#### Regular Expression:
 - **~** (via `regexp`)
 - **!~** (via notRegexp)
 
-### Range:
+#### Range:
 - BETWEEN (via `between`)
 
-### NULL checks:
+#### NULL checks:
 - IS NULL (via `isNull`)
 - IS NOT NULL (via `isNotNull`)
 
-### List Operations:
+#### List Operations:
 - IN (via `inList`)
 - NOT IN (via `notInList`)
 
-### Array Operations:
+#### Array Operations:
 - **=** ANY (via `eqAny`)
 - **!=** ANY (via `neqAny`)
 
-## Raw values
+### Raw values
 
 The DSL provides the flexibility to construct any statements even if non-standard or not yet in the library using `Raw`.
 
