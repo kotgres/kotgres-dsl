@@ -1,5 +1,3 @@
-# Kotgres-dsl
-
 ![kotgres-dsl banner](media/readme.png)
 
 **This library is in alpha, and the API is subject to change**
