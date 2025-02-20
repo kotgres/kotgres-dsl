@@ -37,6 +37,39 @@ dependencies {
 }
 ```
 
+## Quick start
+
+Paste this code into a Kotlin file:
+
+```kotlin
+import io.kotgres.dsl.select
+import io.kotgres.dsl.operators.*
+
+fun main() {
+    val sql = select("*")
+        .from("users")
+        .where("id" eq 1)
+        .orderBy("id")
+        .limit(100)
+        .toSql(true)
+    println(sql)
+}
+```
+
+And you will get this output:
+
+```sql
+SELECT *
+FROM users
+WHERE
+  id = 1
+ORDER BY id ASC
+LIMIT 100
+```
+
+**🎉 Congrats you have just written your first SQL query using Kotgres' DSL 🎉**
+
+
 ## Features
 
 ### Base statements
@@ -108,7 +141,7 @@ import io.kotgres.dsl.select
 import io.kotgres.dsl.operators.*
 
 val sql = select("*")
-    .from("user")
+    .from("users")
     .leftJoin("address").on("address.user_id = user.id")
     .rightJoin("country").on("address.country_id = country.id")
     .where("country.id" eq 1)
@@ -120,7 +153,7 @@ println(sql)
 Will print:
 ```sql
 SELECT *
-FROM user
+FROM users
     LEFT JOIN address ON ( address.user_id = user.id )
     RIGHT JOIN country ON ( address.country_id = country.id )
 WHERE
@@ -135,7 +168,7 @@ import io.kotgres.dsl.insertInto
 import io.kotgres.dsl.ConflictSet
 import io.kotgres.dsl.operators.*
 
-val sql = insertInto("user")
+val sql = insertInto("users")
     .columns("name", "age")
     .value(listOf("david", 18))
     .onConflictColumn("name")
@@ -148,7 +181,7 @@ println(sql)
 
 Will print:
 ```sql
-INSERT INTO user ( name, age )
+INSERT INTO users ( name, age )
 VALUES ( 'david', 18 )
 ON CONFLICT (name) DO UPDATE
     SET name = 'duplicated'
