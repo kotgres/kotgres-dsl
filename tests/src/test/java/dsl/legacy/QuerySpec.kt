@@ -58,7 +58,7 @@ class QuerySpec {
         @Test
         fun `should match sql with fields specified and order by two fields`() {
             val sql = select("id", "name", "age").from("user")
-                .orderBy("id", "name")
+                .orderBy(listOf("id", "name"))
                 .toSql()
 
             assertEquals("SELECT id, name, age FROM user ORDER BY id ASC, name ASC", sql)

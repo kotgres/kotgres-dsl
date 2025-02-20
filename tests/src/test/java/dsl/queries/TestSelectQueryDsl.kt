@@ -1,25 +1,14 @@
 package dsl.queries
 
-import io.kotgres.dsl.BINDING
-import io.kotgres.dsl.DESC
-import io.kotgres.dsl.NULLS_LAST
-import io.kotgres.dsl.OrderByNulls
+import io.kotgres.dsl.*
 import io.kotgres.dsl.exceptions.DslException
 import io.kotgres.dsl.extensions.raw
-import io.kotgres.dsl.operators.and
-import io.kotgres.dsl.operators.avg
-import io.kotgres.dsl.operators.eq
-import io.kotgres.dsl.operators.isNull
-import io.kotgres.dsl.operators.neq
-import io.kotgres.dsl.operators.or
-import io.kotgres.dsl.operators.sub
-import io.kotgres.dsl.select
-import io.kotgres.dsl.withAs
+import io.kotgres.dsl.operators.*
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import java.util.Date
+import java.util.*
 
 class TestSelectQueryDsl {
 
@@ -229,7 +218,7 @@ class TestSelectQueryDsl {
 
         @Test
         fun `where works as expected with or operator`() {
-            val query = select("a").from("b").where(sub("c") or sub("d")).orderByAsc("e").toSql()
+            val query = select("a").from("b").where(sub("c") or sub("d")).orderBy("e", Order.ASC).toSql()
 
             assertEquals("SELECT a FROM b WHERE ( c ) OR ( d ) ORDER BY e ASC", query)
         }
@@ -368,34 +357,6 @@ RIGHT JOIN ( SELECT * FROM country WHERE population > 1000 ) AS c ON ( a.country
 
             assertEquals("SELECT * FROM asd ORDER BY hello ASC", string)
         }
-
-        @Test
-        fun `orderByAsc works as expected with DESC and NULLS LAST`() {
-            val query = select("a").from("b").orderBy("c", DESC, NULLS_LAST).toSql()
-
-            assertEquals("SELECT a FROM b ORDER BY c DESC NULLS LAST", query)
-        }
-
-        @Test
-        fun `orderByAsc works as expected`() {
-            val query = select("a").from("b").orderByAsc("c").toSql()
-
-            assertEquals("SELECT a FROM b ORDER BY c ASC", query)
-        }
-
-        @Test
-        fun `orderByAsc works as expected with nulls first`() {
-            val query = select("a").from("b").orderByAsc("c", OrderByNulls.FIRST).toSql()
-
-            assertEquals("SELECT a FROM b ORDER BY c ASC NULLS FIRST", query)
-        }
-
-        @Test
-        fun `orderByAsc works as expected with nulls last`() {
-            val query = select("a").from("b").orderByAsc("c", OrderByNulls.LAST).toSql()
-
-            assertEquals("SELECT a FROM b ORDER BY c ASC NULLS LAST", query)
-        }
     }
 
     @Nested
@@ -411,7 +372,8 @@ RIGHT JOIN ( SELECT * FROM country WHERE population > 1000 ) AS c ON ( a.country
                 .limit(10)
                 .toSql(true)
 
-            assertEquals("""
+            assertEquals(
+                """
 SELECT *
 FROM country
 GROUP BY region_id
@@ -420,7 +382,8 @@ HAVING
   AND AVG(sales_amount) > 500
   OR 1=1
 LIMIT 10
-            """.trimIndent(), string)
+            """.trimIndent(), string
+            )
         }
 
         @Test
@@ -434,7 +397,8 @@ LIMIT 10
                 .limit(10)
                 .toSql(true)
 
-            assertEquals("""
+            assertEquals(
+                """
 SELECT *
 FROM country
 GROUP BY region_id
@@ -443,7 +407,8 @@ HAVING
   OR AVG(sales_amount) > 500
   AND 1=1
 LIMIT 10
-            """.trimIndent(), string)
+            """.trimIndent(), string
+            )
         }
     }
 
@@ -478,7 +443,7 @@ LIMIT 10
             val query = select("a")
                 .from("b")
                 .where(sub("c") or sub("d"))
-                .orderByAsc("e")
+                .orderBy("e", Order.ASC)
                 .toSql(true)
             assertEquals(
                 """
