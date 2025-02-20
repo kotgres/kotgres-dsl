@@ -16,20 +16,8 @@ open class OrderByQuerySelect(query: SelectQuery) : LimitQuerySelect(query) {
         return innerOrder(field, order = order, nulls = nulls)
     }
 
-    fun orderBy(vararg fields: String, order: Order = DEFAULT_ORDER, nulls: OrderByNulls? = null): InnerOrderByQuerySelect {
-        return innerOrder(*fields, order = order, nulls = nulls)
-    }
-
     fun orderBy(fields: List<String>, order: Order = DEFAULT_ORDER, nulls: OrderByNulls? = null): InnerOrderByQuerySelect {
-        return orderBy(*fields.toTypedArray(), order = order, nulls = nulls)
-    }
-
-    fun orderByAsc(field: String, nulls: OrderByNulls? = null): InnerOrderByQuerySelect {
-        return orderBy(field, order = Order.ASC, nulls = nulls)
-    }
-
-    fun orderByDesc(field: String, nulls: OrderByNulls? = null): InnerOrderByQuerySelect {
-        return orderBy(field, order = Order.DESC, nulls = nulls)
+        return innerOrder(*fields.toTypedArray(), order = order, nulls = nulls)
     }
 
 }
