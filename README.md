@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     <...>
-    implementation("com.github.kotgres:kotgres-dsl:0.1.1")
+    implementation("com.github.kotgres:kotgres-dsl:0.1.2")
 }
 ```
 
@@ -33,7 +33,7 @@ repositories {
 
 dependencies {
     <...>
-    implementation 'com.github.kotgres:kotgres-dsl:0.1.1'
+    implementation 'com.github.kotgres:kotgres-dsl:0.1.2'
 }
 ```
 
