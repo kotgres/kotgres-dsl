@@ -4,6 +4,7 @@ import io.kotgres.dsl.Raw
 import io.kotgres.dsl.queries.block.IQueryBlock
 import io.kotgres.dsl.queries.block.QueryBlock
 import io.kotgres.dsl.queries.select.base.SelectQuery
+import java.util.*
 
 internal object Operations {
     /**
@@ -255,6 +256,7 @@ internal object Operations {
      * UTILS
      */
     private fun computeAnyValue(value: Any): String {
+        // replace to escape values
         return "'${value.toString().replace("'", "''")}'"
     }
 
@@ -265,7 +267,8 @@ internal object Operations {
             is Int -> value.toString()
             is Long -> value.toString()
             is Boolean -> value.toString()
-            is String -> computeAnyValue(value) // custom case due to bindings
+            is String -> computeAnyValue(value)
+            is Date -> "'${value.toInstant()}'" // toInstant since that toString format is compatible with Postgres
             // Dsl
             is Raw -> value.value
             is IQueryBlock -> "( $value )"
