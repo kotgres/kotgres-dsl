@@ -16,7 +16,7 @@ import io.kotgres.dsl.select
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class QueryFunCallSpec {
+class QueryFunCallSpecTest {
 
     @Test
     fun `should match sql with fields and where condition`() {

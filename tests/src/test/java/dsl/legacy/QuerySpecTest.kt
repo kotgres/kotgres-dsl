@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.util.Date
 
-class QuerySpec {
+class QuerySpecTest {
 
     @Nested
     inner class `given one table select statement` {

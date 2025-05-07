@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
-class TestInsertQueryDsl {
+class InsertQueryDslTest {
 
     @Nested
     inner class withAs {
